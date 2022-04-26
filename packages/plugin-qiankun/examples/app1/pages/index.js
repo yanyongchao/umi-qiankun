@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
-import { useModel, MicroAppWithMemoHistory } from 'umi';
+import React, { useState, useRef } from 'react';
+import { useModel, MicroAppWithMemoHistory, history } from 'umi';
 import { Drawer } from 'antd';
+import { loadMicroApp } from 'qiankun';
 
 export default function () {
   const { testProp1, globalState } = useModel('@@qiankunStateFromMaster') || {};
   const [visible, setVisible] = useState(false);
+  const ref = useRef();
   return (
     <div>
       <h1>Dashboard 1</h1>
@@ -12,9 +14,16 @@ export default function () {
       <p>globalState: {JSON.stringify(globalState)}</p>
 
       <h1>MicroAppWithMemoHistory</h1>
+      {/* <MicroAppWithMemoHistory name="app3" url="/home"></MicroAppWithMemoHistory> */}
+      <div ref={ref}></div>
       <button
         onClick={() => {
-          setVisible(true);
+          // setVisible(true);
+          const d = loadMicroApp({
+            name: 'app3',
+            entry: 'http://localhost:8003/app3/home',
+            container: ref.current,
+          });
         }}
       >
         打开 app2

@@ -10,6 +10,10 @@ export default {
           name: 'app2',
           entry: 'http://localhost:8002/app2',
         },
+        {
+          name: 'app3',
+          entry: 'http://localhost:8003/app3',
+        },
       ],
     },
     slave: {},
